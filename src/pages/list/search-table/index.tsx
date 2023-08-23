@@ -16,12 +16,7 @@ import locale from './locale';
 import styles from './style/index.module.less';
 import './mock';
 import { getColumns } from './constants';
-import { apiArticleEdit, selectByCondition } from '@/request/subject';
-
-const { Title } = Typography;
-export const ContentType = ['图文', '横版短视频', '竖版短视频'];
-export const FilterType = ['规则筛选', '人工'];
-export const Status = ['已上线', '未上线'];
+import { apiArticleEdit, selectByCondition ,addSubject} from '@/request/subject';
 import {
   Modal,
   Form,
@@ -30,7 +25,13 @@ import {
   Message,
   Alert,
 } from '@arco-design/web-react';
+
+export const ContentType = ['图文', '横版短视频', '竖版短视频'];
+export const FilterType = ['规则筛选', '人工'];
+export const Status = ['已上线', '未上线'];
+
 const FormItem = Form.Item;
+const { Title } = Typography;
 
 function SearchTable() {
   const t = useLocale(locale);
@@ -52,6 +53,18 @@ function SearchTable() {
   const [loading, setLoading] = useState(true);
   const [formParams, setFormParams] = useState({});
   const { current, pageSize } = pagination;
+
+  const [name, setName] = useState(''); // State to hold the input value
+  const [description, setDescription] = useState(''); // State to hold the input value
+
+  const handleInputChange = (event) => {
+    setName(event);
+  };
+
+  const handleSetDescription = (event) => {
+    setDescription(event);
+  };
+
   useEffect(() => {
     fetchData().then((res) => {
       console.log(res);
@@ -102,11 +115,26 @@ function SearchTable() {
   function onOk() {
     form.validate().then((res) => {
       setConfirmLoading(true);
-      setTimeout(() => {
-        Message.success('Success !');
-        setVisible(false);
-        setConfirmLoading(false);
-      }, 1500);
+      addSubject({
+        name : name
+      }).then((res)=>{
+        console.log(res);
+        if(res.msg==='添加成功!'){
+          setTimeout(() => {
+            Message.success('Success !');
+            setVisible(false);
+            setConfirmLoading(false);
+            window.location.reload();
+          }, 1500);
+        }else{
+          setTimeout(() => {
+            Message.error('Error !');
+            setVisible(false);
+            setConfirmLoading(false);
+            window.location.reload();
+          }, 1500);
+        }
+      })
     });
   }
 
@@ -146,12 +174,12 @@ function SearchTable() {
                 style: { flexBasis: 'calc(100% - 90px)' },
               }}
             >
-              <FormItem label="Name" field="name" rules={[{ required: true }]}>
-                <Input placeholder="" />
+              <FormItem label="学科名称" field="name" rules={[{ required: true }]}>
+                <Input placeholder="" value={name} onChange={handleInputChange}/>
               </FormItem>
-              {/* <FormItem label='Gender' required field='sex' rules={[{ required: true }]}>
-                <Select options={['男', '女']} />
-              </FormItem> */}
+              <FormItem label="学科描述" field="description" rules={[{ required: true }]}>
+                <Input placeholder="" value={description} onChange={handleSetDescription}/>
+              </FormItem>
             </Form>
           </Modal>
           <div className={styles['button-group']}>
