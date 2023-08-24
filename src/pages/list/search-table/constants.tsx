@@ -89,6 +89,7 @@ export function getColumns(
                     icon: <IconFont type="icon-success" />,
                     content: '操作成功!',
                   });
+                  // callback(record, 'view')
                   window.location.reload();
                 } else {
                   Message.error({

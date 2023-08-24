@@ -82,12 +82,17 @@ function SearchTable() {
       setLoading(false);
     });
   };
-  //删除函数拿过来
-  useEffect(() => {
-    handleTableData();
-  }, [setData]);
+  // //删除函数拿过来
+  // useEffect(() => {
+  //   handleTableData();
+  // }, []);
+
+  // const searchData = () => {
+
+  // }
 
   useEffect(() => {
+    // handleTableData();
     handleTableData();
   }, [pagination.current, pagination.pageSize, JSON.stringify(formParams)]);
 
@@ -105,7 +110,7 @@ function SearchTable() {
       createUid: '',
       disabled: '',
     };
-    return selectByCondition(1, 10, param);
+    return selectByCondition(1, 10, formParams);
   }
 
   function onChangeTable({ current, pageSize }) {
@@ -163,7 +168,7 @@ function SearchTable() {
         <Card>
           <Title heading={6}>{t['menu.list.searchTable']}</Title>
           {/* 按钮 以及一些搜索信息  */}
-          {/* <SearchForm onSearch={handleSearch} /> */}
+          <SearchForm onSearch={handleSearch} />
           <PermissionWrapper
             requiredPermissions={[
               { resource: 'menu.list.searchTable', actions: ['write'] },
