@@ -36,6 +36,10 @@ export function getColumns(
   t: any,
   callback: (record: Record<string, any>, type: string) => Promise<void>
 ) {
+  // const handleSubmit = () => {
+  //   console.log(values);
+  //   t.callback(values);
+  // };
   return [
     {
       title: t['searchTable.columns.id'],
