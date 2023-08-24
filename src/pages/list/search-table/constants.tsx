@@ -12,13 +12,11 @@ import IconText from './icons/text.svg';
 import { IconPlus, IconDelete } from '@arco-design/web-react/icon';
 import IconHorizontalVideo from './icons/horizontal.svg';
 import IconVerticalVideo from './icons/vertical.svg';
-import dayjs from 'dayjs';
 import styles from './style/index.module.less';
 import { deleteSubjects } from '@/request/subject';
-import { useState, useEffect, useMemo } from 'react';
-import { apiArticleEdit, selectByCondition } from '@/request/subject';
-import { Table, Card, PaginationProps } from '@arco-design/web-react';
+import { useState, useEffect, useMemo, useContext } from 'react';
 import { IconFaceSmileFill } from '@arco-design/web-react/icon';
+import AddClass from './provider/AddClass';
 
 const { Text } = Typography;
 
@@ -55,8 +53,6 @@ export function getColumns(
     {
       title: t['searchTable.columns.createdTime'],
       dataIndex: 'createTime',
-      // render: (x) => dayjs().subtract(x, 'days').format('YYYY-MM-DD HH:mm:ss'),
-      // sorter: (a, b) => b.createdTime - a.createdTime,
     },
     {
       title: t['searchTable.columns.status'],
@@ -87,6 +83,7 @@ export function getColumns(
             icon={<IconFaceSmileFill style={{ color: '#0057fe' }} />}
             onOk={() => {
               deleteSubjects(record.id).then((res) => {
+                // const {handleTableData} = useContext(AddClass)
                 if (res.msg === '操作成功') {
                   Message.success({
                     icon: <IconFont type="icon-success" />,

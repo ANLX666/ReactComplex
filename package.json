@@ -2,6 +2,8 @@
   "name": "arco-design-pro",
   "version": "1.0.0",
   "description": "Arco Design Pro",
+  "main": "main.js",
+  "homepage": ".",
   "scripts": {
     "start": "react-app-rewired start",
     "dev": "react-app-rewired start",
@@ -10,7 +12,9 @@
     "eslint": "eslint src/ --ext .ts,.tsx,.js,.jsx --fix --cache",
     "stylelint": "stylelint 'src/**/*.less' 'src/**/*.css' --fix --cache",
     "pre-commit": "pretty-quick --staged && npm run eslint && npm run stylelint",
-    "prepare": "husky install && husky add .husky/pre-commit 'npm run pre-commit'"
+    "prepare": "husky install && husky add .husky/pre-commit 'npm run pre-commit'",
+    "electron-start": "electron .",
+    "packageWin": "electron-packager ./ myapp --platform=win32 --arch=x64 --out ./OutApp --asar --app-version=0.1.0 --overwrite --icon=./app/img/icon/icon.ico"
   },
   "dependencies": {
     "@antv/data-set": "^0.11.8",
@@ -24,6 +28,7 @@
     "bizcharts": "^4.1.11",
     "classnames": "^2.3.1",
     "copy-to-clipboard": "^3.3.1",
+    "electron": "^26.1.0",
     "exceljs": "^4.3.0",
     "http-proxy-middleware": "^2.0.6",
     "lodash": "^4.17.21",
@@ -47,6 +52,7 @@
     "@typescript-eslint/parser": "^5.4.0",
     "customize-cra": "^1.0.0",
     "customize-cra-less-loader": "^2.0.0",
+    "electron-packager": "^17.1.2",
     "eslint": "^8.9.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-babel": "^5.3.1",
