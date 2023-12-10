@@ -72,6 +72,36 @@ export const routes: IRoute[] = [
     ],
   },
   {
+    name: '通知管理',
+    key: 'birdNotice',
+    children: [
+      {
+        name: '通知列表',
+        key: 'birdNotice/birdNotice',
+      },
+    ],
+  },
+  {
+    name: '用户分数管理',
+    key: 'birdUser',
+    children: [
+      {
+        name: '用户列表',
+        key: 'birdUser/birdUserList',
+      },
+    ],
+  },
+  {
+    name: 'RCchat',
+    key: 'RCchat',
+    children: [
+      {
+        name: '聊天',
+        key: 'RCchat/RCchat',
+      },
+    ],
+  },
+  {
     name: 'menu.form',
     key: 'form',
     children: [
